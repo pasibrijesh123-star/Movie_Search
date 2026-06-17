@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Search Results</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:#0b0b0b;
+font-family:Arial,sans-serif;
+color:white;
+padding:40px;
+}
+
+h1{
+margin-bottom:30px;
+}
+
+.results{
+display:grid;
+grid-template-columns:
+repeat(auto-fill,minmax(220px,1fr));
+gap:25px;
+}
+
+.movie-card{
+
+background:#181818;
+
+border-radius:12px;
+
+overflow:hidden;
+
+cursor:pointer;
+
+transition:.4s;
+}
+
+.movie-card:hover{
+
+transform:
+translateY(-10px)
+scale(1.05);
+
+box-shadow:
+0 20px 40px rgba(0,0,0,.6);
+
+}
+
+.movie-card img{
+
+width:100%;
+height:330px;
+object-fit:cover;
+
+}
+
+.movie-info{
+
+padding:15px;
+
+}
+
+.movie-info h3{
+
+font-size:1rem;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1 id="title">
+Search Results
+</h1>
+
+<div class="results" id="results">
+
+</div>
+
+<script>
+
+const API_KEY =
+"13ac9bfa472af87785dae3ff8a14cf3c";
+
+const params =
+new URLSearchParams(
+window.location.search
+);
+
+const query =
+params.get("query");
+
+document.getElementById(
+"title"
+).innerText =
+`Results for "${query}"`;
+
+async function searchMovie() {
+
+const response =
+await fetch(
+
+`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`
+
+);
+
+const data =
+await response.json();
+
+const results =
+document.getElementById(
+"results"
+);
+
+data.results.forEach(movie=>{
+
+const card =
+document.createElement("div");
+
+card.classList.add(
+"movie-card"
+);
+
+card.innerHTML=`
+
+<img
+src="${
+movie.poster_path
+?
+'https://image.tmdb.org/t/p/w500'+movie.poster_path
+:
+'https://via.placeholder.com/220x330'
+}"
+>
+
+<div class="movie-info">
+
+<h3>
+${movie.title}
+</h3>
+
+</div>
+
+`;
+
+results.appendChild(card);
+
+});
+
+}
+
+searchMovie();
+
+</script>
+
+</body>
+</html>

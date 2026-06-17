@@ -1,0 +1,15 @@
+.hero{
+animation:zoomHero 12s infinite alternate;
+}
+
+@keyframes zoomHero{
+
+from{
+background-size:100%;
+}
+
+to{
+background-size:110%;
+}
+
+}
