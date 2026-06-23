@@ -1,4 +1,4 @@
-const API_KEY = "13ac9bfa472af87785dae3ff8a14cf3c";
+const API_KEY = "";
 
 function searchMovie() {
 
